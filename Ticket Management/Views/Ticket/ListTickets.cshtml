@@ -1,0 +1,45 @@
+﻿@model List<TicketManagement.Models.Ticket>
+@{
+    ViewData["Title"] = "Support Tickets";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var UserObj = (AppUser)ViewBag.UserObj;
+}
+
+<h1>Support Tickets</h1>
+<div class="row">
+    <div class="col-2" style="margin:10px 0;">
+    @if (UserObj.Role == RoleEnum.User) {
+        @Html.ActionLink("Add New Ticket","CreateTicket","Ticket",new {}, new {@class = "btn btn-primary" })
+    }
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Title</th>
+                <th scope ="col">Description</th>
+                <th scope="col">Priority</th>
+                <th scope="col">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Title</td>
+                    <td>@item.Description</td>
+                    <td>@item.Priority</td>
+                    @if (UserObj.Role == RoleEnum.User)
+                    {
+                        <td>@item.TicketStatus</td>
+                    }else{
+                        <td><select asp-for="@item.TicketStatus" asp-items="Html.GetEnumSelectList<TicketStatusEnum>()" data-itemid="@item.Id" class="ticket_status" ></select></td>
+                    }
+                </tr>    
+            }        
+        </tbody>
+    </table>
+    </div>
+</div>

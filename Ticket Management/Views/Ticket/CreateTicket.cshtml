@@ -1,0 +1,26 @@
+﻿@model TicketManagement.Models.Ticket
+@{
+    ViewData["Title"] = "Create Ticket";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Create Ticket</h1>
+
+<form method="post" asp-controller="Ticket" asp-action="CreateTicket">
+
+    <div class="form-group col-sm-6">
+        <label for="Role">Priority</label>
+        <select asp-for="Priority" asp-items="Html.GetEnumSelectList<PriorityEnum>()"></select>
+    </div>
+    <div class="form-group col-sm-6">
+        <label for="Name">Title</label>
+        <input type="text" class="form-control" id="Title" asp-for="Title" placeholder="Enter Title">
+    </div>
+    <div class="form-group col-sm-6">
+        <label for="EmailId">Description</label>
+        <textarea class="form-control" id="EmailId" asp-for="Description" placeholder="Enter Description"></textarea>
+    </div>
+    <div class="form-group col-sm-6">
+        <button type="submit" class="btn btn-primary">Create New</button>
+    </div>
+</form>
